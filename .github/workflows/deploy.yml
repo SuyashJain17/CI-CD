@@ -14,10 +14,10 @@ jobs:
       - name: Checkout the code
         uses: actions/checkout@v2
 
-        - name: executing remote ssh commands using password
-        uses: appleboy/ssh-action@v1.2.1
+      - name: executing remote ssh commands using password
+        uses: appleboy/ssh-action@v1.2.0
         with:
-          host: $54.91.44.154
+          host: 54.91.44.154
           username: ubuntu
           key: ${{ secrets.PRIVATE_SSH_KEY }}
           port: 22
