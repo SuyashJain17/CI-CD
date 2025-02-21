@@ -14,7 +14,7 @@ jobs:
       - name: Checkout the code
         uses: actions/checkout@v2
 
-      - name: Executing remote SSH commands using key
+      - name: Deploying to EC2 via SSH
         uses: appleboy/ssh-action@v1.2.0
         with:
           host: 54.91.44.154
@@ -22,8 +22,31 @@ jobs:
           key: ${{ secrets.PRIVATE_SSH_KEY }}
           port: 22
           script: |
-            cd CI-CD
-            git pull
+            # Update system packages
+            sudo apt update -y
+
+            # Install Node.js and npm if not available
+            if ! command -v npm &> /dev/null
+            then
+              echo "Node.js and npm not found. Installing..."
+              curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
+              sudo apt install -y nodejs build-essential
+            fi
+
+            # Confirm installation
+            node -v
+            npm -v
+
+            # Remove old project folder if exists
+            rm -rf week-25-ci-cd
+
+            # Clone the repo
+            git clone https://github.com/SuyashJain17/CI-CD.git week-25-ci-cd
+
+            # Navigate to project directory
+            cd week-25-ci-cd
+
+            # Install dependencies, build, and deploy
             npm install
             npm run build
-            npm run start
+            npm run deploy
