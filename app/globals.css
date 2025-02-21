@@ -2,20 +2,101 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: 220 25% 98%;
+    --foreground: 220 25% 2%;
+    --card: 0 0% 100%;
+    --card-foreground: 220 25% 2%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 25% 2%;
+    --primary: 248 90% 66%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 220 25% 95%;
+    --secondary-foreground: 220 25% 2%;
+    --muted: 220 25% 95%;
+    --muted-foreground: 220 10% 40%;
+    --accent: 248 90% 97%;
+    --accent-foreground: 248 90% 66%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 220 25% 93%;
+    --input: 220 25% 93%;
+    --ring: 248 90% 66%;
+    --radius: 0.75rem;
+  }
+
+  .dark {
+    --background: 220 25% 2%;
+    --foreground: 220 25% 98%;
+    --card: 220 25% 4%;
+    --card-foreground: 220 25% 98%;
+    --popover: 220 25% 4%;
+    --popover-foreground: 220 25% 98%;
+    --primary: 248 90% 66%;
+    --primary-foreground: 220 25% 98%;
+    --secondary: 220 25% 8%;
+    --secondary-foreground: 220 25% 98%;
+    --muted: 220 25% 8%;
+    --muted-foreground: 220 10% 70%;
+    --accent: 248 90% 33%;
+    --accent-foreground: 220 25% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 220 25% 98%;
+    --border: 220 25% 8%;
+    --input: 220 25% 8%;
+    --ring: 248 90% 66%;
   }
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.gradient-text {
+  background: linear-gradient(45deg, hsl(248, 90%, 66%), hsl(280, 90%, 66%), hsl(320, 90%, 66%));
+  background-size: 200% 200%;
+  animation: gradient 8s ease infinite;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gradient-bg {
+  background: linear-gradient(45deg, 
+    hsl(248, 90%, 97%),
+    hsl(280, 90%, 97%),
+    hsl(320, 90%, 97%)
+  );
+  background-size: 200% 200%;
+  animation: gradient 15s ease infinite;
 }
